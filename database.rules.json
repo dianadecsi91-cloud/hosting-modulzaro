@@ -1,0 +1,9 @@
+
+{
+  "rules": {
+    "films": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
