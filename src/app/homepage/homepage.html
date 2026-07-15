@@ -1,6 +1,6 @@
 <div class="container-fluid py-4">
   <div class="row g-4">
-    
+
     <div class="col-12 col-md-8">
       <div class="border rounded p-3">
         <h2>Filmek</h2>
@@ -8,16 +8,19 @@
 
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card h-100">
-              <img src="assets/macska.jpg" class="card-img-top" alt="Macskaarisztokraták" style="height: 180px; object-fit: cover;">
+              <img src="assets/macska.jpg" class="card-img-top" alt="Macskaarisztokraták"
+                style="height: 180px; object-fit: cover;">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">Macskaarisztrokraták</h5>
                 <p class="card-text mb-1">Retro mese</p>
                 <div class="mt-auto">
-                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 8.0 / 10</div>
-                    <div class="d-grid gap-2">
-                        <button routerLink="/rating" class="btn btn-sm btn-secondary">Értékelés írása</button>
-                        <button class="btn btn-sm btn-secondary">Értékelések</button>
-                    </div>
+                  <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 8.0 / 10</div>
+                  <div class="d-grid gap-2">
+                    <button [routerLink]="['/review', film.key]" class="btn btn-sm btn-secondary">
+                      Vélemény írása
+                    </button>
+                    <button class="btn btn-sm btn-secondary">Értékelések</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -25,16 +28,17 @@
 
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card h-100">
-              <img src="assets/Zootropia.jpg" class="card-img-top" alt="Zootopia" style="height: 180px; object-fit: cover;">
+              <img src="assets/Zootropia.jpg" class="card-img-top" alt="Zootopia"
+                style="height: 180px; object-fit: cover;">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">Zootropia</h5>
                 <p class="card-text mb-1">Modern mese</p>
                 <div class="mt-auto">
-                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 9.2 / 10</div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-sm btn-secondary">Értékelés írása</button>
-                        <button class="btn btn-sm btn-secondary">Értékelések</button>
-                    </div>
+                  <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 9.2 / 10</div>
+                  <div class="d-grid gap-2">
+                    <button class="btn btn-sm btn-secondary">Vélemény írása</button>
+                    <button class="btn btn-sm btn-secondary">Értékelések</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -42,16 +46,17 @@
 
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card h-100">
-              <img src="assets/agymano.jpg" class="card-img-top" alt="Agymanók" style="height: 180px; object-fit: cover;">
+              <img src="assets/agymano.jpg" class="card-img-top" alt="Agymanók"
+                style="height: 180px; object-fit: cover;">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">Agymanók</h5>
                 <p class="card-text mb-1">Modern mese</p>
                 <div class="mt-auto">
-                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 8.5 / 10</div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-sm btn-secondary">Értékelés írása</button>
-                        <button class="btn btn-sm btn-secondary">Értékelések</button>
-                    </div>
+                  <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 8.5 / 10</div>
+                  <div class="d-grid gap-2">
+                    <button class="btn btn-sm btn-secondary">Vélemény írása</button>
+                    <button class="btn btn-sm btn-secondary">Értékelések</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -59,9 +64,8 @@
 
           <div *ngFor="let film of service.films" class="col-12 col-md-6 col-lg-4">
             <div class="card h-100">
-              <img [src]="film.image || 'assets/images.jpg'"
-                   class="card-img-top" [alt]="film.title"
-                   style="height: 180px; object-fit: cover; background: #eee;">
+              <img [src]="film.image || 'assets/images.jpg'" class="card-img-top" [alt]="film.title"
+                style="height: 180px; object-fit: cover; background: #eee;">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ film.title || 'Új Film' }}</h5>
                 <p class="card-text mb-1">{{ film.genre }}</p>
@@ -70,8 +74,10 @@
                   <div class="text-warning"><i class="bi bi-star-fill"></i> {{ film.rating }} / 10</div>
                 </div>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-sm btn-secondary">Értékelés írása</button>
-                    <button class="btn btn-sm btn-secondary">Értékelések</button>
+                  <button (click)="openReview(film.key)" class="btn btn-sm btn-secondary">
+                    Vélemény írása
+                  </button>
+                  <button class="btn btn-sm btn-secondary">Értékelések</button>
                 </div>
               </div>
             </div>
@@ -84,40 +90,38 @@
     <div class="col-12 col-md-4">
       <div class="border rounded p-3">
         <h2>Új film hozzáadása</h2>
-        
+
         <div class="mb-3">
-  <label class="form-label">Cím*</label>
-  <input type="text" class="form-control mb-2" placeholder="Film címe" [(ngModel)]="film.title">
-  
-  <div *ngIf="film.title == ''" class="text-danger mb-2">Add meg a cimet</div>
+          <label class="form-label">Cím*</label>
+          <input type="text" class="form-control mb-2" placeholder="Film címe" [(ngModel)]="film.title">
 
-  <label class="form-label">Műfaj</label>
-  <input type="text" class="form-control mb-2" placeholder="Műfaj" [(ngModel)]="film.genre">
-  
-  <div *ngIf="film.genre == ''" class="text-danger mb-2">Add meg a műfajt</div>
+          <div *ngIf="film.title == ''" class="text-danger mb-2">Add meg a cimet</div>
 
-  <label class="form-label">Évszám</label>
-  <input type="text" class="form-control mb-2" placeholder="Évszám" [(ngModel)]="film.date">
-  
-  <div *ngIf="film.date < 1111" class="text-danger mb-2">Add meg az évszámát</div>
+          <label class="form-label">Műfaj</label>
+          <input type="text" class="form-control mb-2" placeholder="Műfaj" [(ngModel)]="film.genre">
+
+          <div *ngIf="film.genre == ''" class="text-danger mb-2">Add meg a műfajt</div>
+
+          <label class="form-label">Évszám</label>
+          <input type="text" class="form-control mb-2" placeholder="Évszám" [(ngModel)]="film.date">
+
+          <div *ngIf="film.date < 1111" class="text-danger mb-2">Add meg az évszámát</div>
 
 
-  <label class="form-label">Kép URL (nem kötelező)</label>
-  <input type="text" class="form-control mb-2" placeholder="https://..." [(ngModel)]="film.image">
-  
-  <label class="form-label">Értékelés (1-10)</label>
-  <input type="number" class="form-control mb-3" placeholder="Pl: 8.5" [(ngModel)]="film.rating">
+          <label class="form-label">Kép URL (nem kötelező)</label>
+          <input type="text" class="form-control mb-2" placeholder="https://..." [(ngModel)]="film.image">
 
-  <div *ngIf="film.rating < 1 || film.rating > 10" class="text-danger mb-2">
-    Az értékelés 1 és 10 közötti szám legyen!
-  </div>
+          <label class="form-label">Értékelés (1-10)</label>
+          <input type="number" class="form-control mb-3" placeholder="Pl: 8.5" [(ngModel)]="film.rating">
 
-  <button (click)="create()" 
-        [disabled]="!validation"
-        class="btn btn-primary w-100">
-  Film hozzáadása
-</button>
-</div>
+          <div *ngIf="film.rating < 1 || film.rating > 10" class="text-danger mb-2">
+            Az értékelés 1 és 10 közötti szám legyen!
+          </div>
+
+          <button (click)="create()" [disabled]="!validation" class="btn btn-primary w-100">
+            Film hozzáadása
+          </button>
+        </div>
       </div>
     </div>
   </div>

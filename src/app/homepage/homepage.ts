@@ -15,13 +15,15 @@ export class Homepage {
   constructor(public service: FilmService) { }
 
   create() {
-    
-      
+
       this.service.writeData(this.film).then(() => {
        
-        this.film = new Film(); 
       });
       
+  }
+
+  openReview(id: string) {
+  this.service.selectedFilmId = id;
   }
 async loadFilms() {
   const snapshot = await this.service.readData(); 

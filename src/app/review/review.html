@@ -1,0 +1,7 @@
+<input [(ngModel)]="author" class="form-control">
+<input type="number" [(ngModel)]="rating" class="form-control">
+<textarea [(ngModel)]="text" class="form-control"></textarea>
+
+<button (click)="saveReview()" [disabled]="text.length < 50 || rating < 1 || rating > 10">
+  Mentés
+</button>

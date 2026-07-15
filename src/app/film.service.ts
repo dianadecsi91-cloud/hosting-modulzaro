@@ -20,9 +20,12 @@ const firebaseConfig = {
   providedIn: 'root',
 })
 
+
 export class FilmService {
   path: string = "films";
   films: Film[] = [];
+  selectedFilmId: string = '';
+  
   private db: Database;
 
   constructor() {
