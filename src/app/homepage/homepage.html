@@ -84,21 +84,41 @@
     <div class="col-12 col-md-4">
       <div class="border rounded p-3">
         <h2>Új film hozzáadása</h2>
+        
         <div class="mb-3">
-          <label class="form-label">Cím</label>
-          <input type="text" class="form-control mb-2" placeholder="Film címe" [(ngModel)]="film.title">
-          <label class="form-label">Műfaj</label>
-          <input type="text" class="form-control mb-2" placeholder="Műfaj" [(ngModel)]="film.genre">
-          <label class="form-label">Évszám</label>
-          <input type="text" class="form-control mb-2" placeholder="Évszám" [(ngModel)]="film.date">
-          <label class="form-label">Kép URL</label>
-          <input type="text" class="form-control mb-2" placeholder="https://..." [(ngModel)]="film.image">
-          <label class="form-label">Értékelés (1-10)</label>
-          <input type="number" class="form-control mb-3" placeholder="Pl: 8.5" [(ngModel)]="film.rating">
-          <button (click)="create()" class="btn btn-secondary w-100">Film hozzáadása</button>
-        </div>
+  <label class="form-label">Cím*</label>
+  <input type="text" class="form-control mb-2" placeholder="Film címe" [(ngModel)]="film.title">
+  
+  <div *ngIf="film.title == ''" class="text-danger mb-2">Add meg a cimet</div>
+
+  <label class="form-label">Műfaj</label>
+  <input type="text" class="form-control mb-2" placeholder="Műfaj" [(ngModel)]="film.genre">
+  
+  <div *ngIf="film.genre == ''" class="text-danger mb-2">Add meg a műfajt</div>
+
+  <label class="form-label">Évszám</label>
+  <input type="text" class="form-control mb-2" placeholder="Évszám" [(ngModel)]="film.date">
+  
+  <div *ngIf="film.date < 1111" class="text-danger mb-2">Add meg az évszámát</div>
+
+
+  <label class="form-label">Kép URL (nem kötelező)</label>
+  <input type="text" class="form-control mb-2" placeholder="https://..." [(ngModel)]="film.image">
+  
+  <label class="form-label">Értékelés (1-10)</label>
+  <input type="number" class="form-control mb-3" placeholder="Pl: 8.5" [(ngModel)]="film.rating">
+
+  <div *ngIf="film.rating < 1 || film.rating > 10" class="text-danger mb-2">
+    Az értékelés 1 és 10 közötti szám legyen!
+  </div>
+
+  <button (click)="create()" 
+        [disabled]="!validation"
+        class="btn btn-primary w-100">
+  Film hozzáadása
+</button>
+</div>
       </div>
     </div>
-
   </div>
 </div>

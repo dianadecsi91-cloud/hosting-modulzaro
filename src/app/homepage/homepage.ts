@@ -10,25 +10,21 @@ import { Film } from '../film';
 })
 export class Homepage {
 
-  constructor(public service: FilmService) { }
-
   film: Film = new Film();
 
+  constructor(public service: FilmService) { }
 
   create() {
-  console.log("Küldendő adat:", this.film); // Ellenőrizd a konzolban (F12), hogy itt látsz-e értékeket!
-  
-  if (this.film.title && this.film.title !== "") {
-    this.service.writeData(this.film).then(() => {
-      console.log("Sikeres mentés!");
-      this.film = new Film(); // Az űrlap alaphelyzetbe állítása
-    });
-  } else {
-    alert("Kérlek, add meg a film címét!");
+    
+      
+      this.service.writeData(this.film).then(() => {
+       
+        this.film = new Film(); 
+      });
+      
   }
-}
 async loadFilms() {
-  const snapshot = await this.service.readData(); // A korábban írt readData metódus
+  const snapshot = await this.service.readData(); 
   if (snapshot.exists()) {
     this.service.films = Object.values(snapshot.val());
   }
@@ -36,4 +32,12 @@ async loadFilms() {
 async ngOnInit() {
   this.service.films = await this.service.getFilms();
 }
+
+get validation(): boolean {
+    if (!this.film.title || this.film.title.length < 1) return false;
+    if (!this.film.genre || this.film.genre.length < 1) return false;
+    if (!this.film.date || this.film.date < 1111) return false;
+
+    return true;
+  }
 }
