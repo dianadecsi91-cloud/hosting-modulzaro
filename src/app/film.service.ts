@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, get, push, Database } from 'firebase/database';
+import { getDatabase, ref, get, push, Database } from 'firebase/database';
 import { Film } from './film';
 
 
@@ -38,12 +38,20 @@ export class FilmService {
     });
   }
 
-  writeData(film: Film) {
-    const dbRef = ref(this.db, this.path);
-    this.films.push(film);
-    return set(dbRef,this.films);
+  writeData(film: any) {
+  const dbRef = ref(this.db, 'films');
 
- }
+  const filmData = {
+    title: film.title || "",
+    genre: film.genre || "",
+    date: film.date || "",
+    image: film.image || "assets/images.jpg",
+    rating: film.rating || 0,
+    reviews: film.reviews || [] 
+  };
+  
+  return push(dbRef, filmData)
+}
   readData(): Promise<any> {
     const dbRef = ref(this.db, this.path);
     return get(dbRef);
