@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component} from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../film';
 
@@ -32,5 +32,8 @@ async loadFilms() {
   if (snapshot.exists()) {
     this.service.films = Object.values(snapshot.val());
   }
+}
+async ngOnInit() {
+  this.service.films = await this.service.getFilms();
 }
 }

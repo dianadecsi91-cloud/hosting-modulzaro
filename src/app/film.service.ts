@@ -57,5 +57,27 @@ export class FilmService {
     return get(dbRef);
 
   }
+  async seedData() {
+  const films = [
+    { title: "Macskaarisztokraták", genre: "Retro mese", date: "1970", rating: 8.0, image: "assets/macska.jpg" },
+    { title: "Zootropia", genre: "Modern mese", date: "2016", rating: 9.2, image: "assets/zootropia.jpg" },
+    { title: "Agymanók", genre: "Modern mese", date: "2015", rating: 8.5, image: "assets/agymano.jpg" }
+  ];
 
+  const dbRef = ref(this.db, 'films');
+  for (const film of films) {
+    await push(dbRef, film);
+  }
+  console.log("Adatok feltöltve!");
+}
+async getFilms() {
+  const dbRef = ref(this.db, 'films');
+  const snapshot = await get(dbRef);
+  if (snapshot.exists()) {
+  
+    const data = snapshot.val();
+    return Object.keys(data).map(key => ({ id: key, ...data[key] }));
+  }
+  return [];
+}
 }
